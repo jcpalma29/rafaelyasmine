@@ -55,6 +55,14 @@
   max-width: 760px;
 }
 
+.dress-page__subtitle b,
+.dress-page__subtitle strong {
+  font-family: "NeueMontreal-Bold", "Neue Montreal", var(--font-sans, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif);
+  font-weight: 700;
+  font-style: normal;
+  color: rgba(20, 20, 18, 0.92);
+}
+
 /* Bottom image */
 .dress-page__dress {
   width: min(100%, 400px);

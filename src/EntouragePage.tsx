@@ -236,7 +236,7 @@ export default function EntouragePage() {
                 aria-label="Principal sponsors left"
               >
                 <li>Mrs. Roselyn Jorge</li>
-                <li>Mrs. Myrna GapudZ</li>
+                <li>Mrs. Myrna Gapud</li>
                 <li>Mrs. Teresita Depaz</li>
                 <li>Mrs. Marites Ilaya</li>
                 <li>Mrs. Remedios Celeste</li>
@@ -351,7 +351,7 @@ export default function EntouragePage() {
               <div>
                 <div className="entourage-section__title">GROOMSMEN</div>
                 <ul className="entourage-list" aria-label="Groomsmen">
-                  <li>Karol John Jospeh Pfleider</li>
+                  <li>Karol John Joseph Pfleider</li>
                   <li>Ehrize Guevarra</li>
                   <li>Robin Resplandor</li>
                   <li>Fregie Martin</li>

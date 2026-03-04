@@ -1,6 +1,22 @@
 /* index.css */
 
 /* ✅ local fonts (src/assets/fonts/...) */
+
+/* ✅ HARD OVERRIDE: stop any parent background from showing on iOS */
+html,
+body,
+#root,
+.page{
+  background: #eeeeec !important;
+}
+
+/* ✅ prevents iOS rubber-band from revealing a different color */
+html,
+body{
+  height: 100%;
+  overscroll-behavior-y: none;
+}
+
 @font-face {
   font-family: "TheSeasons";
   src: url("./assets/fonts/theseasons-reg.otf") format("opentype");
@@ -89,7 +105,12 @@ body {
   display: block;
   place-items: initial;
 
-  background: #ffffff;
+  background: #eeeeec;
+}
+
+#root{
+  min-height: 100svh;
+  background: #eeeeec;
 }
 
 h1 {

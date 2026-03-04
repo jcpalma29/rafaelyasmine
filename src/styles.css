@@ -2,13 +2,13 @@ html,
 body{
   height: 100%;
   margin: 0;
-  background: #797a65;
+  background: #eeeeec;
 }
 
 .page{
   min-height: 100vh;
   position: relative;
-  background: #797a65;
+  background: #eeeeec;
 }
 
 .bgVideo{
