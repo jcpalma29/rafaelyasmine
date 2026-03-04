@@ -1,6 +1,6 @@
 .rsvp-page{
   min-height: 100vh;
-  background: #fff;
+  background: #eeeeec;
   display: flex;
   justify-content: center;
   padding: clamp(26px, 5vw, 56px) 16px 64px;

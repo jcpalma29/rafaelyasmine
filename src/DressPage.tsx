@@ -64,14 +64,14 @@ export default function DressPage() {
           loading="lazy"
           draggable={false}
         />
-        <img
+        {/* <img
           ref={dressRef}
           className="dress-page__shade"
           src="/shade.png"
           alt="Dress"
           loading="lazy"
           draggable={false}
-        />
+        /> */}
       </div>
     </section>
   );

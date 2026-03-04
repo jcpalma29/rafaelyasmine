@@ -10,7 +10,10 @@
   display: flex;
   justify-content: center;
 
-  /* ✅ NEW: force all text to black by default */
+  /* ✅ spacing without creating a scrollable "top area" */
+  padding-top: 40px;
+  padding-bottom: 40px;
+
   color: #000;
 }
 
@@ -22,11 +25,13 @@
   padding-right: 10vw;
   padding-bottom: 40px;
   box-sizing: border-box;
+
+  /* ✅ removed margin that caused the extra scroll area */
   margin: 0 auto;
+
   position: relative;
   overflow: visible;
 
-  /* ✅ NEW: ensure all text inside frame stays black */
   color: #000;
 }
 
@@ -39,7 +44,6 @@
   margin: 45px auto 0 auto;
   padding: 62px 22px 70px;
 
-  /* ✅ NEW: reinforce */
   color: #000;
 }
 
@@ -52,7 +56,6 @@
   margin: 0 auto 18px auto;
   padding: 40px 20px;
 
-  /* ✅ NEW */
   color: #000;
 }
 
@@ -97,42 +100,7 @@
 .entourage-page__header {
   text-align: center;
   margin-bottom: 26px;
-
-  /* ✅ NEW */
   color: #000;
-}
-
-.entourage-page__titleImage {
-  display: block;
-  width: min(320px, 82vw);
-  height: auto;
-  margin: 8px auto 10px;
-  user-select: none;
-}
-
-.entourage-page__ornament {
-  width: min(520px, 82vw);
-  height: 14px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.entourage-page__ornament::before,
-.entourage-page__ornament::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 44%;
-  height: 1px;
-  background: rgba(20, 20, 18, 0.22);
-}
-
-.entourage-page__ornament::before {
-  left: 0;
-}
-
-.entourage-page__ornament::after {
-  right: 0;
 }
 
 .entourage-page__parents {
@@ -140,8 +108,6 @@
   display: grid;
   gap: 18px;
   margin: 18px 0 28px;
-
-  /* ✅ NEW */
   color: #000;
 }
 
@@ -153,8 +119,6 @@
   text-transform: uppercase;
   opacity: 0.78;
   font-weight: 600;
-
-  /* ✅ NEW */
   color: #000;
 }
 
@@ -164,15 +128,11 @@
   letter-spacing: 0.08em;
   opacity: 0.75;
   font-family: var(--font-sans);
-
-  /* ✅ NEW */
   color: #000;
 }
 
 .entourage-section {
   margin-top: 35px;
-
-  /* ✅ NEW */
   color: #000;
 }
 
@@ -205,13 +165,12 @@
   line-height: 1.9;
   opacity: 0.72;
   font-family: var(--font-sans);
-
-  /* ✅ NEW */
   color: #000;
 }
 
 .entourage-list--tight {
   line-height: 1.75;
+    margin-top: 6px;
 }
 
 .entourage-triple {
@@ -220,8 +179,6 @@
   gap: 18px;
   margin-top: 10px;
   align-items: start;
-
-  /* ✅ NEW */
   color: #000;
 }
 
@@ -236,13 +193,17 @@
   opacity: 0.68;
   margin-bottom: 8px;
   letter-spacing: 0.35em;
-
-  /* ✅ NEW */
   color: #000;
+}
+
+.entourage-triple--bottom{
+  margin-top: 38px;
+  margin-bottom: 70px;
 }
 
 .entourage-section--pair {
   margin-top: 18px;
+  margin-bottom: 56px;
 }
 
 .entourage-pair {
@@ -257,19 +218,6 @@
   text-align: center;
 }
 
-.entourage-bottom {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 54px;
-  margin-top: 10px;
-  align-items: start;
-}
-
-.entourage-triple--bearers {
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 18px;
-}
-
 /* ivy decorations */
 .entourage-page__ivy {
   position: absolute;
@@ -279,21 +227,41 @@
   user-select: none;
 
   will-change: transform, filter, opacity;
+  backface-visibility: hidden;
+
+  /* ✅ make sure they sit above content */
+  z-index: 20;
 }
 
 .entourage-page__ivy--left {
   top: -16px;
   left: -8px;
-  right: auto;
-  z-index: 7;
 }
 
 .entourage-page__ivy--right {
   right: -28px;
   top: -56px;
-  left: auto;
-  z-index: 6;
   opacity: 0.9 !important;
+}
+
+/* bottom ivy decorations */
+.entourage-page__ivy--bottomLeft {
+  left: -10px;
+  bottom: -24px;
+  top: auto;
+}
+
+/* ✅ KEY FIX: keep it INSIDE the clipping area, shift LEFT */
+.entourage-page__ivy--bottomRight {
+  right: -20px;
+  bottom: -24px;
+  top: auto;
+
+  /* move it left instead of outside the container */
+  transform: translateX(-40px);
+
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 /* responsive */
@@ -313,8 +281,7 @@
   }
 
   .entourage-cols,
-  .entourage-pair,
-  .entourage-bottom {
+  .entourage-pair {
     grid-template-columns: 1fr;
     gap: 22px;
   }
@@ -343,12 +310,15 @@
     right: -12px;
   }
 
-  .entourage-page__titleImage {
-    display: block;
-    width: min(220px, 82vw);
-    height: auto;
-    margin: 8px auto 10px;
-    user-select: none;
+  .entourage-page__ivy--bottomLeft {
+    left: -6px;
+    bottom: -1px;
+  }
+
+  .entourage-page__ivy--bottomRight {
+    right: 0;
+    bottom: -1px;
+    transform: translateX(-22px);
   }
 
   .entourage-page__titleText {
@@ -360,12 +330,11 @@
   .entourage-section__title {
     font-size: 14px;
   }
-  
-}
 
-.entourage-page__ivy {
-  will-change: transform, filter, opacity;
-  backface-visibility: hidden;
+  .entourage-triple--bottom{
+  margin-top: 38px;
+  margin-bottom: 10px;
+}
 }
 
 .entourage-page__header,

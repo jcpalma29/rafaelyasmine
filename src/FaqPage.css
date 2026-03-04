@@ -2,7 +2,7 @@
 
 .faq-page {
   min-height: auto;
-  background: #fff;
+  background: #e0dfcd;
   display: flex;
   justify-content: center;
   padding: clamp(22px, 5vw, 56px) 16px clamp(28px, 6vw, 64px);

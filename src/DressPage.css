@@ -7,7 +7,7 @@
   justify-content: center;
   padding: clamp(16px, 4vw, 48px) clamp(12px, 4vw, 24px) 48px;
   box-sizing: border-box;
-  background: #ffffff;
+  background: #e0dfcd;
 }
 
 .dress-page__inner {
@@ -57,7 +57,7 @@
 
 /* Bottom image */
 .dress-page__dress {
-  width: min(100%, 760px);
+  width: min(100%, 400px);
   max-width: 100%;
   height: auto;
   display: block;

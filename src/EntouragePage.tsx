@@ -8,22 +8,28 @@ gsap.registerPlugin(ScrollTrigger);
 export default function EntouragePage() {
   const ivyLeftRef = useRef<HTMLImageElement | null>(null);
   const ivyRightRef = useRef<HTMLImageElement | null>(null);
+  const ivyBottomLeftRef = useRef<HTMLImageElement | null>(null);
+  const ivyBottomRightRef = useRef<HTMLImageElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const left = ivyLeftRef.current;
     const right = ivyRightRef.current;
+    const bottomLeft = ivyBottomLeftRef.current;
+    const bottomRight = ivyBottomRightRef.current;
     const content = contentRef.current;
-    if (!left || !right || !content) return;
+
+    if (!left || !right || !bottomLeft || !bottomRight || !content) return;
 
     const ctx = gsap.context(() => {
-      gsap.killTweensOf([left, right]);
+      gsap.killTweensOf([left, right, bottomLeft, bottomRight]);
 
-      // -----------------------
-      // IVY ANIMATION (yours)
-      // -----------------------
-      gsap.set([left, right], { clearProps: "transform,filter,opacity" });
+      // ✅ we animate these 3 normally
+      const ivyIntroTargets = [left, right, bottomLeft];
 
+      gsap.set(ivyIntroTargets, { clearProps: "transform,filter,opacity" });
+
+      // top
       gsap.set(left, {
         x: -18,
         y: -18,
@@ -40,17 +46,33 @@ export default function EntouragePage() {
         force3D: true,
       });
 
+      // bottom-left
+      gsap.set(bottomLeft, {
+        x: -18,
+        y: 18,
+        opacity: 0,
+        filter: "blur(1px)",
+        force3D: true,
+      });
+
+      // ✅ FORCE bottom-right visible (no intro opacity/blur)
+      gsap.set(bottomRight, {
+        opacity: 1,
+        filter: "blur(0px)",
+        force3D: true,
+      });
+
       const intro = gsap.timeline({ delay: 0.15 });
 
       intro
-        .to([left, right], {
+        .to(ivyIntroTargets, {
           opacity: 1,
           duration: 0.55,
           filter: "blur(0px)",
           ease: "power2.out",
         })
         .to(
-          [left, right],
+          ivyIntroTargets,
           {
             x: 0,
             y: 0,
@@ -60,38 +82,57 @@ export default function EntouragePage() {
           0,
         );
 
-      const floatLeft = gsap.timeline({
-        repeat: -1,
-        yoyo: true,
-        defaults: { ease: "sine.inOut" },
-        delay: 2.0,
-      });
-
-      floatLeft
+      // float top-left
+      gsap
+        .timeline({
+          repeat: -1,
+          yoyo: true,
+          defaults: { ease: "sine.inOut" },
+          delay: 2.0,
+        })
         .to(left, { y: -12, x: 2, duration: 3.4, force3D: true })
         .to(left, { y: -6, x: -4, duration: 3.0, force3D: true });
 
-      const floatRight = gsap.timeline({
-        repeat: -1,
-        yoyo: true,
-        defaults: { ease: "sine.inOut" },
-        delay: 2.15,
-      });
-
-      floatRight
+      // float top-right
+      gsap
+        .timeline({
+          repeat: -1,
+          yoyo: true,
+          defaults: { ease: "sine.inOut" },
+          delay: 2.15,
+        })
         .to(right, { y: -12, x: -4, duration: 3.8, force3D: true })
         .to(right, { y: -7, x: 5, duration: 3.2, force3D: true });
 
-      // -----------------------
-      // TEXT: MORE OBVIOUS + FULL OPACITY AT BOTTOM
-      // -----------------------
+      // float bottom-left
+      gsap
+        .timeline({
+          repeat: -1,
+          yoyo: true,
+          defaults: { ease: "sine.inOut" },
+          delay: 2.05,
+        })
+        .to(bottomLeft, { y: 12, x: 2, duration: 3.4, force3D: true })
+        .to(bottomLeft, { y: 6, x: -4, duration: 3.0, force3D: true });
+
+      // ✅ float bottom-right (only transform, keep visible)
+      gsap
+        .timeline({
+          repeat: -1,
+          yoyo: true,
+          defaults: { ease: "sine.inOut" },
+          delay: 2.2,
+        })
+        .to(bottomRight, { y: 8, x: 2, duration: 3.2, force3D: true })
+        .to(bottomRight, { y: 6, x: 1, duration: 3.2, force3D: true });
+
+      // TEXT reveal
       const items = Array.from(
         content.querySelectorAll<HTMLElement>(
           ".entourage-page__header, .entourage-page__parents, .entourage-section, .entourage-triple",
         ),
       );
 
-      // stronger hidden state (more obvious)
       gsap.set(items, {
         opacity: 0,
         y: 70,
@@ -104,10 +145,9 @@ export default function EntouragePage() {
           scrollTrigger: {
             trigger: content,
             start: "top 85%",
-            end: "bottom bottom", // ensures at the bottom: progress === 1
+            end: "bottom bottom",
             scrub: 0.6,
             invalidateOnRefresh: true,
-            // markers: true,
           },
           defaults: { ease: "power2.out" },
         })
@@ -116,7 +156,7 @@ export default function EntouragePage() {
           y: 0,
           filter: "blur(0px)",
           duration: 1,
-          stagger: 0.16, // top -> bottom, more pronounced
+          stagger: 0.16,
           overwrite: "auto",
         });
     }, contentRef);
@@ -127,6 +167,7 @@ export default function EntouragePage() {
   return (
     <section className="entourage-page" aria-label="Entourage">
       <div className="entourage-page__frame">
+        {/* TOP */}
         <img
           ref={ivyLeftRef}
           className="entourage-page__ivy entourage-page__ivy--left"
@@ -145,25 +186,33 @@ export default function EntouragePage() {
           draggable={false}
         />
 
+        {/* BOTTOM */}
+        <img
+          ref={ivyBottomLeftRef}
+          className="entourage-page__ivy entourage-page__ivy--bottomLeft"
+          src="/ivlb.png"
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+        />
+
+        <img
+          ref={ivyBottomRightRef}
+          className="entourage-page__ivy entourage-page__ivy--bottomRight"
+          src="/ivyrb.png"
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+        />
+
         <div ref={contentRef} className="entourage-page__inner">
-          {/* <header className="entourage-page__header">
-            <img
-              className="entourage-page__titleImage"
-              src="/bdet.png"
-              alt="Bridal Entourage"
-              loading="eager"
-              draggable={false}
-            />
-          </header> */}
-
-          {/* NEW: title above parents */}
           <h2 className="entourage-page__titleText">The Entourage</h2>
-
           <div className="entourage-page__parents">
             <div className="entourage-block">
               <div className="entourage-block__title">PARENTS OF THE BRIDE</div>
               <div className="entourage-block__sub">
-                Mrs. Laura Isabel Trigo &amp; Blessed from above by the memory of{" "}
+                Mrs. Laura Isabel Trigo &amp; Blessed from above by the memory
+                of{" "}
                 <span style={{ fontStyle: "italic" }}> Mr. Pedro M. Trigo</span>
               </div>
             </div>
@@ -171,11 +220,10 @@ export default function EntouragePage() {
             <div className="entourage-block">
               <div className="entourage-block__title">PARENTS OF THE GROOM</div>
               <div className="entourage-block__sub">
-               Mrs. Melba Ramos &amp; Mr. Rigor Ramos
+                Mrs. Melba Ramos &amp; Mr. Rigor Ramos
               </div>
             </div>
           </div>
-
           <section
             className="entourage-section"
             aria-label="Principal sponsors"
@@ -187,44 +235,45 @@ export default function EntouragePage() {
                 className="entourage-list"
                 aria-label="Principal sponsors left"
               >
-                <li>TERESITA DEPAZ</li>
-                <li>ROSELYN DEPAZ</li>
-                <li>REMEDIOS CELESTE</li>
-                <li>AUNTIE FE</li>
-                <li>TITA EDNA</li>
-                <li>ANNALYN TRAPANI</li>
-                <li>MYRNA GAPUD</li>
-                <li>LIRIO SOLERO</li>
-                <li>WILMA BOLAONG</li>
-                <li>NOEMIE AUSTERO</li>
-                <li>TES ILAYA</li>
-                <li>EMMA GRUMEZ</li>
-                <li>RUTH LICUANAN</li>
-                <li>MARILYN PAITIM</li>
+                <li>Mrs. Roselyn Jorge</li>
+                <li>Mrs. Myrna GapudZ</li>
+                <li>Mrs. Teresita Depaz</li>
+                <li>Mrs. Marites Ilaya</li>
+                <li>Mrs. Remedios Celeste</li>
+                <li>Gen. Noemie Austero</li>
+                <li>Mrs. Felicia Malpal</li>
+                <li>Engr. Wilma Bulaong</li>
+                <li>Ms. Annalyn Trapani</li>
+                <li>Mrs. Abigail Madridano</li>
+                <li>Mrs. Lirio Solero</li>
+                <li>Mrs. Edna Padlan</li>
+                <li>Mrs. Erma Grumez</li>
+                <li>Mrs. Ruth Licuanan</li>
+                <li>Mrs. Marilyn Paitim</li>
               </ul>
 
               <ul
                 className="entourage-list"
                 aria-label="Principal sponsors right"
               >
-                <li>DANILO</li>
-                <li>LAUREL DEPAZ</li>
-                <li>RAMIR CELESTE</li>
-                <li>RIZALINO ARREZA</li>
-                <li>JUNIOR TRIGO</li>
-                <li>ABIGAIL MADRIDANO</li>
-                <li>VAL GAPUD</li>
-                <li>REYNALDO SOLERO</li>
-                <li>EDGARDO BULAONG</li>
-                <li>JUPITER ALAS</li>
-                <li>DANTE ILAYA</li>
-                <li>JOSEPH SOLEJON</li>
-                <li>SANTIOGO ARREZA</li>
-                <li>JULIAN PAITIM</li>
+                <li>Mr. Laurel Depaz</li>
+                <li>Mr. Valentino Gapud</li>
+                <li>Mr. Danilo Pacanut</li>
+                <li>Atty. Dante Ilaya</li>
+                <li>Mr. Ramir Celeste</li>
+                <li>Mr. Jupiter Alas</li>
+                <li>Mr. Rizalino Arreza</li>
+                <li>Engr. Edgardo Bulaong</li>
+                <br />
+                <br />
+                <li>Engr. Reynaldo Solero</li>
+                <li>Mr. Junior Trigo</li>
+                <li>Mr. Joseph Solejon</li>
+                <li>Mr. Santiago Arreza</li>
+                <li>Mr. Julian Paitim</li>
               </ul>
             </div>
           </section>
-
           <section
             className="entourage-section"
             aria-label="Secondary sponsors"
@@ -233,55 +282,54 @@ export default function EntouragePage() {
           </section>
           <div className="entourage-triple">
             <div className="entourage-mini">
-              <div className="entourage-mini__label">VEIL</div>
+              <div className="entourage-block__title">VEIL</div>
               <ul
                 className="entourage-list entourage-list--tight"
                 aria-label="Candle sponsors"
               >
-                <li>MRS HAZEL CRUZ</li>
-                <li>MR MICHAEL CRUZ</li>
+                <li>Joane Camille Palma</li>
+                <li>Roi Rasos</li>
               </ul>
             </div>
 
             <div className="entourage-mini">
-              <div className="entourage-mini__label">CANDLE</div>
+              <div className="entourage-block__title">CANDLE</div>
               <ul
                 className="entourage-list entourage-list--tight"
                 aria-label="Veil sponsors"
               >
-                <li>MR KENT MARANON</li>
-                <li>MRS MARIE JOYCE HULLANA</li>
+                <li>Joanna Michelle Gapud</li>
+                <li>Pocholo Ian Trigo</li>
               </ul>
             </div>
 
             <div className="entourage-mini">
-              <div className="entourage-mini__label">CORD</div>
+              <div className="entourage-block__title">CORD</div>
               <ul
                 className="entourage-list entourage-list--tight"
                 aria-label="Cord sponsors"
               >
-                <li>MS HANZEL PONTINO</li>
-                <li>MR BABYLOU BALASA JR.</li>
+                <li>Angela Marie Manalastas-Juezan</li>
+                <li>John Daryl Tan</li>
               </ul>
             </div>
           </div>
-              <section
+          <section
             className="entourage-section entourage-section--pair"
             aria-label="Honor attendants"
           >
             <div className="entourage-pair">
               <div className="entourage-block entourage-block--center">
                 <div className="entourage-block__title">MAID OF HONOR</div>
-                <div className="entourage-block__sub">SHAIRA MAE TRIGO</div>
+                <div className="entourage-block__sub">Shaira Mae Trigo</div>
               </div>
 
               <div className="entourage-block entourage-block--center">
                 <div className="entourage-block__title">BEST MAN</div>
-                <div className="entourage-block__sub">RALPH DANIEL RAMOS</div>
+                <div className="entourage-block__sub">Ralph Daniel Ramos</div>
               </div>
             </div>
           </section>
-
           <section
             className="entourage-section"
             aria-label="Bridesmaids and groomsmen"
@@ -290,54 +338,52 @@ export default function EntouragePage() {
               <div>
                 <div className="entourage-section__title">BRIDESMAIDS</div>
                 <ul className="entourage-list" aria-label="Bridesmaids">
-                  <li>JOANNA MICHELLE GAPUD</li>
-                  <li>ASHLEY FAITH JORGE</li>
-                  <li>ANAK MOMI TESS</li>
-                  <li>JOANE CAMILLE PALMA</li>
-                  <li>ANNABELLE CANEGA</li>
-                  <li>MARIBELL ESCOBAR</li>
-                  <li>RINA ALIMPUYO</li>
-                  <li>REYSHEL JOY BUENVIAJE</li>
-                  <li>ANGELA MARIE MANALASTAS</li>
-                  <li>MARIA MILAGROS FIESTA</li>
+                  <li>Reyshel Joy Buenviaje-Banta</li>
+                  <li>Rina Alimpuyo</li>
+                  <li>Maribell Escobar</li>
+                  <li>Annabelle Canega</li>
+                  <li>Maria Milagros Fiesta</li>
+                  <li>Ashley Faith Jorge</li>
+                  <li>Minerva Christine Pacanut</li>
                 </ul>
               </div>
 
               <div>
                 <div className="entourage-section__title">GROOMSMEN</div>
                 <ul className="entourage-list" aria-label="Groomsmen">
-                  <li>POCHOLO IAN TRIGO</li>
-                  <li>ARK</li>
-                  <li>ROI</li>
-                  <li>LESTER</li>
-                  <li>PAOLO FEROS</li>
-                  <li>EHRIZE GUEVERRA</li>
-                  <li>ROBIN RESPLANDOR</li>
-                  <li>KAROL</li>
-                  <li>DARYL</li>
-                  <li>GIE</li>
+                  <li>Karol John Jospeh Pfleider</li>
+                  <li>Ehrize Guevarra</li>
+                  <li>Robin Resplandor</li>
+                  <li>Fregie Martin</li>
+                  <li>Arkheus Antolin</li>
+                  <li>Paolo Ferros</li>
+                  <li>Lester Jhon Cabanilla</li>
                 </ul>
               </div>
             </div>
           </section>
-
-      
-          <section
-            className="entourage-section entourage-section--pair"
-            aria-label="Honor attendants"
-          >
-            <div className="entourage-pair">
+          <div className="entourage-triple entourage-triple--bottom">
+            <div className="entourage-mini">
               <div className="entourage-block entourage-block--center">
                 <div className="entourage-block__title">ٍRING BEARER</div>
-                <div className="entourage-block__sub">SHAIRA MAE TRIGO</div>
-              </div>
-
-              <div className="entourage-block entourage-block--center">
-                <div className="entourage-block__title">FLOWER GIRL</div>
-                <div className="entourage-block__sub">RALPH DANIEL RAMOS</div>
+                <div className="entourage-block__sub">Seth Jurrien Rivera</div>
               </div>
             </div>
-          </section>
+
+            <div className="entourage-mini">
+              <div className="entourage-block entourage-block--center">
+                <div className="entourage-block__title">COIN BEARER</div>
+                <div className="entourage-block__sub">Sid Randall Jorge</div>
+              </div>
+            </div>
+
+            <div className="entourage-mini">
+              <div className="entourage-block entourage-block--center">
+                <div className="entourage-block__title">FLOWER GIRL</div>
+                <div className="entourage-block__sub">Ayesha Kelly Alvarez</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -8,11 +8,10 @@ export default function RsvpPage() {
   const [attend, setAttend] = useState<AttendChoice>("");
 
   const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
   const [lastName, setLastName] = useState("");
 
-  // const [isEntourageChild, setIsEntourageChild] = useState<boolean | null>(
-  //   null,
-  // );
+  // const [isEntourageChild, setIsEntourageChild] = useState<boolean | null>(null)
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -26,6 +25,8 @@ export default function RsvpPage() {
     () => ({
       attend: "entry.877086558",
       firstName: "entry.1498135098",
+      // ✅ Replace this with the real Email field entry ID from your prefilled link
+      email: "entry.REPLACE_ME",
       lastName: "entry.1980418371",
     }),
     [],
@@ -34,9 +35,17 @@ export default function RsvpPage() {
   const ATTEND_ACCEPT_LABEL = "Yes, I accept with pleasure";
   const ATTEND_DECLINE_LABEL = "Declines with regrets";
 
+  const isValidEmail = (value: string) => {
+    const v = value.trim();
+    if (!v) return false;
+    // simple, practical check
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  };
+
   const canSubmit =
     attend !== "" &&
     firstName.trim().length > 0 &&
+    isValidEmail(email) &&
     lastName.trim().length > 0 &&
     // isEntourageChild !== null &&
     !isSubmitting;
@@ -70,10 +79,12 @@ export default function RsvpPage() {
 
     const attendLabel =
       attend === "accept" ? ATTEND_ACCEPT_LABEL : ATTEND_DECLINE_LABEL;
+
     try {
       submitViaHiddenForm({
         [entry.attend]: attendLabel,
         [entry.firstName]: firstName.trim(),
+        [entry.email]: email.trim(),
         [entry.lastName]: lastName.trim(),
 
         fvv: "1",
@@ -85,8 +96,9 @@ export default function RsvpPage() {
       setStatus("success");
       setAttend("");
       setFirstName("");
+      setEmail("");
       setLastName("");
-      // setIsEntourageChild(null);
+      // setIsEntourageChild(null)
     } catch (err) {
       setStatus("error");
     } finally {
@@ -97,17 +109,11 @@ export default function RsvpPage() {
   return (
     <section className="rsvp-page">
       <div className="rsvp-page__inner">
-         {/* <img
-          className="faq-page__titleImg"
-          src="/rsvp.png"
-          alt="RSVP"
-          draggable={false}
-        />  */}
-
         <h2 className="rsvp-page__heading">Celebrate with us..</h2>
 
         <p className="rsvp-page__subtitle">
-          Please confirm your attendance by entering your details below. You can RSVP until March 8, 2026.
+          Please confirm your attendance by entering your details below. You can
+          RSVP until March 8, 2026.
         </p>
 
         <iframe
@@ -159,30 +165,48 @@ export default function RsvpPage() {
                 className="rsvp-input"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                autoComplete="given-name"
+                autoComplete="name"
+              />
+            </div>
+
+            <div className="rsvp-field">
+              <label className="rsvp-label" htmlFor="email">
+                Email<span className="rsvp-required">*</span>
+              </label>
+              <input
+                id="email"
+                className="rsvp-input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+                inputMode="email"
               />
             </div>
 
             <div className="rsvp-field">
               <label className="rsvp-label" htmlFor="lastName">
-                Please specify if you have any dietary restrictions<span className="rsvp-required">*</span>
+                Please specify if you have any dietary restrictions
+                <span className="rsvp-required">*</span>
               </label>
               <input
                 id="lastName"
                 className="rsvp-input"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                autoComplete="family-name"
+                autoComplete="off"
               />
             </div>
           </div>
 
-  
-
           <button className="rsvp-submit" type="submit" disabled={!canSubmit}>
             {isSubmitting ? "Submitting…" : "Submit"}
           </button>
-          <h5 className="rsvp-note">***This section will close after the above said date. Please contact the couple directly.***</h5>
+
+          <h5 className="rsvp-note">
+            ***This section will close after the above said date. Please contact
+            the couple directly.***
+          </h5>
 
           {status === "success" && (
             <p className="rsvp-status rsvp-status--success">
@@ -198,7 +222,6 @@ export default function RsvpPage() {
         </form>
       </div>
 
-      {/* ✅ jcami.dev credit — now anchored to the whole section corner */}
       <div className="rsvp-credit" aria-label="Site credit">
         <img
           className="rsvp-credit__img"
