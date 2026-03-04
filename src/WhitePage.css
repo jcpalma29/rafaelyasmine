@@ -184,27 +184,77 @@
   }
 }
 
+/* ✅ MOBILE FIX: make right side content flow normally (no absolute top calc) */
 @media (max-width: 820px){
   .whitePage__layout{
     flex-direction: column;
   }
 
-  .whitePage__right{
-    order: 1;
-    min-height: calc(100vh - 26vh);
+  /* use stable viewport units on iOS */
+  .whitePage{
+    min-height: 100svh;
   }
 
+  /* RIGHT AREA: allow it to size naturally */
+  .whitePage__right{
+    order: 1;
+    min-height: auto;
+    overflow: visible;          /* ✅ stop clipping */
+  }
+
+  .whitePage__content{
+    min-height: auto;
+    padding: 22px 0 18px 0;     /* spacing above/below */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* stack becomes relative so it contributes to height */
+  .whitePage__stack{
+    position: relative;         /* ✅ was absolute */
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 0 auto;
+    width: clamp(260px, 78vw, 360px);
+  }
+
+  /* keep the intrinsic height trick */
+  .whitePage__stack::before{
+    padding-top: 140%;
+  }
+
+  /* text becomes relative so it sits under the stack */
+  .whitePage__text{
+    position: relative;         /* ✅ was absolute */
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 16px auto 0 auto;
+    width: min(520px, calc(100vw - 56px));
+  }
+
+  /* STRIP at bottom */
   .whitePage__strip{
     order: 2;
     flex: none;
     width: 100%;
-    min-height: 26vh;
     height: 26vh;
+    min-height: 26vh;
+    display: flex;
     flex-direction: row;
   }
 
   .whitePage__stripImg{
     width: 50%;
     height: 100%;
+  }
+}
+
+/* keep your <=520px font sizing if you want */
+@media (max-width: 520px){
+  .whitePage__line{
+    font-size: 16px;
   }
 }
