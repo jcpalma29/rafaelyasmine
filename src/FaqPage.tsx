@@ -26,7 +26,7 @@ If you haven’t RSVP'd yet, please scroll down on the website and click on the 
       },
       {
         q: "Can I bring a plus one?",
-        a: "We’ve carefully planned our guest list, and only those who have been given a plus one will be able to bring a guest. Unfortunately, anyone not listed on the invitation will not be allowed into the venue. We kindly ask that you respect our wishes and our special day. ",
+        a: "We would like to celebrate this special moment with the people we love and dear to our hearts. Only those who are officially part of the guest list will be allowed to enter. We kindly ask that you respect our wishes on our special day.",
       },
       // {
       //   q: "Is there a dress code?",
