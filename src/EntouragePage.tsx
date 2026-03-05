@@ -245,7 +245,6 @@ export default function EntouragePage() {
                 <li>Engr. Wilma Bulaong</li>
                 <li>Ms. Annalyn Trapani</li>
                 <li>Mrs. Abigail Madridano</li>
-                <li>Mrs. Lirio Solero</li>
                 <li>Mrs. Edna Padlan</li>
                 <li>Mrs. Erma Grumez</li>
                 <li>Mrs. Ruth Licuanan</li>
@@ -266,7 +265,6 @@ export default function EntouragePage() {
                 <li>Engr. Edgardo Bulaong</li>
                 <br />
                 <br />
-                <li>Engr. Reynaldo Solero</li>
                 <li>Mr. Junior Trigo</li>
                 <li>Mr. Joseph Solejon</li>
                 <li>Mr. Santiago Arreza</li>
