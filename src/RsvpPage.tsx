@@ -27,19 +27,18 @@ export default function RsvpPage() {
   const didFinishRef = useRef(false)
 
   const GOOGLE_FORM_ACTION_URL =
-    'https://docs.google.com/forms/d/e/1FAIpQLSdbs_Lez8sHPLZHIGKoZGQ0b6UXg0v3DP1uGVWxVaWE0TY7Iw/formResponse'
+    'https://docs.google.com/forms/d/e/1FAIpQLSdmnQ2ro5OF6Jj4skOLesb8wkWU242afLxZOLhamwWgTEPLrg/formResponse'
 
   const entry = useMemo(
     () => ({
-      attend: 'entry.877086558',
-      firstName: 'entry.1498135098',
-      email: 'entry.138389958',
-      lastName: 'entry.1980418371',
+      attend: 'entry.386405768',
+      firstName: 'entry.2092238618',
+      email: 'entry.1556369182',
+      lastName: 'entry.479301265',
     }),
     [],
   )
 
-  // ⚠️ MUST match Google Form options EXACTLY (including spaces)
   const ATTEND_ACCEPT_LABEL = 'Yes,  I accept with pleasure'
   const ATTEND_DECLINE_LABEL = 'Declines with regrets'
 

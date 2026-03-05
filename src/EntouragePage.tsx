@@ -211,16 +211,16 @@ export default function EntouragePage() {
             <div className="entourage-block">
               <div className="entourage-block__title">PARENTS OF THE BRIDE</div>
               <div className="entourage-block__sub">
-                Mrs. Laura Isabel Trigo &amp; Blessed from above by the memory
+                Mrs. Sofía Morales &amp; Blessed from above by the memory
                 of{" "}
-                <span style={{ fontStyle: "italic" }}> Mr. Pedro M. Trigo</span>
+                <span style={{ fontStyle: "italic" }}> Mr. Alejandro M. Morales</span>
               </div>
             </div>
 
             <div className="entourage-block">
               <div className="entourage-block__title">PARENTS OF THE GROOM</div>
               <div className="entourage-block__sub">
-                Mrs. Melba Ramos &amp; Mr. Rigor Ramos
+                Mrs. Valeria Reyes &amp; Mr. Mateo Reyes
               </div>
             </div>
           </div>
@@ -235,40 +235,36 @@ export default function EntouragePage() {
                 className="entourage-list"
                 aria-label="Principal sponsors left"
               >
-                <li>Mrs. Roselyn Jorge</li>
-                <li>Mrs. Myrna Gapud</li>
-                <li>Mrs. Teresita Depaz</li>
-                <li>Mrs. Marites Ilaya</li>
-                <li>Mrs. Remedios Celeste</li>
-                <li>Gen. Noemie Austero</li>
-                <li>Mrs. Felicia Malpal</li>
-                <li>Engr. Wilma Bulaong</li>
-                <li>Ms. Annalyn Trapani</li>
-                <li>Mrs. Abigail Madridano</li>
-                <li>Mrs. Edna Padlan</li>
-                <li>Mrs. Erma Grumez</li>
-                <li>Mrs. Ruth Licuanan</li>
-                <li>Mrs. Marilyn Paitim</li>
+                <li>Mrs. Camila Herrera </li>
+                <li>Mrs. Lucía Rojas </li>
+                <li>Mrs. Isabella Flores </li>
+                <li>Mrs. Martina Vega </li>
+                <li>Mrs. Paula Fernández </li>
+                <li>Gen. Daniela Paredes </li>
+                <li>Mrs. Elena Cabrera </li>
+                <li>Engr. Gabriela Fuentes </li>
+                <li>Ms. Mariana Salazar </li>
+                <li>Mrs. Carmen Álvarez </li>
+                <li>Mrs. Julie Navarro </li>
+                <li>Mrs. Cristine Castillo </li>
               </ul>
 
               <ul
                 className="entourage-list"
                 aria-label="Principal sponsors right"
               >
-                <li>Mr. Laurel Depaz</li>
-                <li>Mr. Valentino Gapud</li>
-                <li>Mr. Danilo Pacanut</li>
-                <li>Atty. Dante Ilaya</li>
-                <li>Mr. Ramir Celeste</li>
-                <li>Mr. Jupiter Alas</li>
-                <li>Mr. Rizalino Arreza</li>
-                <li>Engr. Edgardo Bulaong</li>
-                <br />
-                <br />
-                <li>Mr. Junior Trigo</li>
-                <li>Mr. Joseph Solejon</li>
-                <li>Mr. Santiago Arreza</li>
-                <li>Mr. Julian Paitim</li>
+                <li>Mr. Diego Navarro</li>
+                <li>Mr. Valentino Reyes</li>
+                <li>Mr. Danilo Flores</li>
+                <li>Atty. Javier Delgado</li>
+                <li>Mr. Carlos Mendoza </li>
+                <li>Mr. Andrés Castillo </li>
+                <li>Mr. Nicolás Morales </li>
+                <li>Engr. Sebastián Ortega </li>
+                <li>Mr. Emilio Reyes </li>
+                <li>Mr. Adrián Vargas </li>
+                <li>Mr. Fernando León </li>
+                <li>Mr. Julian Giménez </li>
               </ul>
             </div>
           </section>
@@ -285,8 +281,8 @@ export default function EntouragePage() {
                 className="entourage-list entourage-list--tight"
                 aria-label="Candle sponsors"
               >
-                <li>Joane Camille Palma</li>
-                <li>Roi Rasos</li>
+                <li>Andrea Reyes</li>
+                <li>Sebastion Santos</li>
               </ul>
             </div>
 
@@ -296,8 +292,8 @@ export default function EntouragePage() {
                 className="entourage-list entourage-list--tight"
                 aria-label="Veil sponsors"
               >
-                <li>Joanna Michelle Gapud</li>
-                <li>Pocholo Ian Trigo</li>
+                <li>Belinda Crettenand</li>
+                <li>Richard Ramos</li>
               </ul>
             </div>
 
@@ -307,8 +303,8 @@ export default function EntouragePage() {
                 className="entourage-list entourage-list--tight"
                 aria-label="Cord sponsors"
               >
-                <li>Angela Marie Manalastas-Juezan</li>
-                <li>John Daryl Tan</li>
+                <li>Victoria Soto</li>
+                <li>Tomás Campos</li>
               </ul>
             </div>
           </div>
@@ -319,12 +315,12 @@ export default function EntouragePage() {
             <div className="entourage-pair">
               <div className="entourage-block entourage-block--center">
                 <div className="entourage-block__title">MAID OF HONOR</div>
-                <div className="entourage-block__sub">Shaira Mae Trigo</div>
+                <div className="entourage-block__sub">Inés Marín</div>
               </div>
 
               <div className="entourage-block entourage-block--center">
                 <div className="entourage-block__title">BEST MAN</div>
-                <div className="entourage-block__sub">Ralph Daniel Ramos</div>
+                <div className="entourage-block__sub">Joey Herrera</div>
               </div>
             </div>
           </section>
@@ -336,26 +332,26 @@ export default function EntouragePage() {
               <div>
                 <div className="entourage-section__title">BRIDESMAIDS</div>
                 <ul className="entourage-list" aria-label="Bridesmaids">
-                  <li>Reyshel Joy Buenviaje-Banta</li>
-                  <li>Rina Alimpuyo</li>
-                  <li>Maribell Escobar</li>
-                  <li>Annabelle Canega</li>
-                  <li>Maria Milagros Fiesta</li>
-                  <li>Ashley Faith Jorge</li>
-                  <li>Minerva Christine Pacanut</li>
+                  <li>Maria Isabel Reyes</li>
+                  <li>Ana Lucia Santos</li>
+                  <li>Sofia Pilar Garcia</li>
+                  <li>Camila Rosario Bautista</li>
+                  <li>Valeria Cruz Mercado</li>
+                  <li>Maria Clara Castilloe</li>
+                  <li>Isabella Santos-Luna</li>
                 </ul>
               </div>
 
               <div>
                 <div className="entourage-section__title">GROOMSMEN</div>
                 <ul className="entourage-list" aria-label="Groomsmen">
-                  <li>Karol John Joseph Pfleider</li>
-                  <li>Ehrize Guevarra</li>
-                  <li>Robin Resplandor</li>
-                  <li>Fregie Martin</li>
-                  <li>Arkheus Antolin</li>
-                  <li>Paolo Ferros</li>
-                  <li>Lester Jhon Cabanilla</li>
+                  <li>Miguel Santiago</li>
+                  <li>Alex de la Cruz</li>
+                  <li>Joaquin Mendoza</li>
+                  <li>Andres Villanueva</li>
+                  <li>Gabriel Fernandez</li>
+                  <li>Emilio Salazar</li>
+                  <li>Pablo Santos</li>
                 </ul>
               </div>
             </div>
@@ -364,21 +360,21 @@ export default function EntouragePage() {
             <div className="entourage-mini">
               <div className="entourage-block entourage-block--center">
                 <div className="entourage-block__title">ٍRING BEARER</div>
-                <div className="entourage-block__sub">Seth Jurrien Rivera</div>
+                <div className="entourage-block__sub">Lucas Rivera</div>
               </div>
             </div>
 
             <div className="entourage-mini">
               <div className="entourage-block entourage-block--center">
                 <div className="entourage-block__title">COIN BEARER</div>
-                <div className="entourage-block__sub">Sid Randall Jorge</div>
+                <div className="entourage-block__sub">Matteo Conti</div>
               </div>
             </div>
 
             <div className="entourage-mini">
               <div className="entourage-block entourage-block--center">
                 <div className="entourage-block__title">FLOWER GIRL</div>
-                <div className="entourage-block__sub">Ayesha Kelly Alvarez</div>
+                <div className="entourage-block__sub">Chiara Ferraro</div>
               </div>
             </div>
           </div>

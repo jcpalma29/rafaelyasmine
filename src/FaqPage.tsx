@@ -59,11 +59,11 @@ Kindly note that transportation to and from the wedding venues will be at guests
       //   q: "Do you have a gift registry?",
       //   a: "Having you there is the best gift we could ask for. If you’d like to contribute to our new chapter together, we welcome gifts that could fit into our medium sized luggage bags! Alternatively, we’d appreciate any monetary contributions to help us start our new journey together. It will be greatly appreciated and would be easier to take with us to Dubai.",
       // },
-      {
-        q: "Is there accomodation?",
-        a: `There are several Airbnb options and hotels nearby. We suggest checking out properties near San Antonio De Padua Church – Kaylaway, Nasugbu, Batangas.	
-        *Please note that the cost of rooms will be covered by the guests.`,
-      },
+      // {
+      //   q: "Is there accomodation?",
+      //   a: `There are several Airbnb options and hotels nearby. We suggest checking out properties near San Antonio De Padua Church – Kaylaway, Nasugbu, Batangas.	
+      //   *Please note that the cost of rooms will be covered by the guests.`,
+      // },
     ],
     [],
   );
@@ -119,7 +119,7 @@ Kindly note that transportation to and from the wedding venues will be at guests
     "“Those we love don’t go away, they walk beside us every day. Unseen, unheard, but always near, still loved, still missed, and very dear.”";
 
   const memorialNamePrefixFull = `In loving memory of ${""}`;
-  const memorialStrongFull = "Mr. Pedro M. Trigo";
+  const memorialStrongFull = "Mr. Alejandro M. Morales";
   const memorialNameSuffixFull = " – Father of the Bride";
 
   const [typedQuote, setTypedQuote] = useState("");

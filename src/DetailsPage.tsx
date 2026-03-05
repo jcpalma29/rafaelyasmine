@@ -188,17 +188,17 @@ export default function DetailsPage() {
           <div className="details-card__inner">
             <div className="details-card__label">CEREMONY</div>
             <div className="details-card__title">
-              <strong>San Antonio De Padua</strong>
-              <br />
-              <strong>Parish Church</strong>
+              <strong>Basilica Minore del Sto. Niño</strong>
+              {/* <br />
+              <strong>Parish Church</strong> */}
             </div>
             <div className="details-card__text details-card__text--sans">
-              Kaylaway, Nasugbu, Batangas
+              Cebu City
             </div>
 
             <a
               className="details-card__btn"
-              href="https://www.google.com/maps/search/?api=1&query=San%20Antonio%20De%20Padua%20Parish%20Church%2C%20Kaylaway%2C%20Nasugbu%2C%20Batangas"
+              href="https://maps.app.goo.gl/mqqmys1z8otVrA7MA"
               target="_blank"
               rel="noreferrer"
             >
@@ -211,15 +211,15 @@ export default function DetailsPage() {
           <div className="details-card__inner">
             <div className="details-card__label">RECEPTION </div>
             <div className="details-card__title">
-              <strong>Club Ananda</strong>
+              <strong>Fort San Pedro</strong>
             </div>
             <div className="details-card__text details-card__text--sans">
-              Sandari, Batulao, Batangas
+              Plaza Independencia, Cebu
             </div>
 
             <a
               className="details-card__btn"
-              href="https://www.google.com/maps/search/?api=1&query=Club%20Ananda%2C%20Sandari%2C%20Batulao%2C%20Batangas"
+              href="https://maps.app.goo.gl/3RS6ExQMHvc1azHv9"
               target="_blank"
               rel="noreferrer"
             >
