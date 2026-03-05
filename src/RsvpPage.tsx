@@ -1,104 +1,144 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useMemo, useRef, useState } from "react";
-import "./RsvpPage.css";
+import {useId, useMemo, useRef, useState} from 'react'
+import './RsvpPage.css'
 
-type AttendChoice = "accept" | "decline" | "";
+type AttendChoice = 'accept' | 'decline' | ''
 
 export default function RsvpPage() {
-  const [attend, setAttend] = useState<AttendChoice>("");
+  const [attend, setAttend] = useState<AttendChoice>('')
 
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState('')
+  const [email, setEmail] = useState('')
+  const [lastName, setLastName] = useState('')
 
   // const [isEntourageChild, setIsEntourageChild] = useState<boolean | null>(null)
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const iframeName = useRef(`gf_iframe_${Math.random().toString(36).slice(2)}`);
+  // ✅ stable id string (safe to use in JSX)
+  const reactId = useId()
+  const iframeName = `gf_iframe_${reactId}`
+
+  const iframeRef = useRef<HTMLIFrameElement | null>(null)
+
+  const successTimerRef = useRef<number | null>(null)
+  const failTimerRef = useRef<number | null>(null)
+  const didFinishRef = useRef(false)
 
   const GOOGLE_FORM_ACTION_URL =
-    "https://docs.google.com/forms/d/e/1FAIpQLSdbs_Lez8sHPLZHIGKoZGQ0b6UXg0v3DP1uGVWxVaWE0TY7Iw/formResponse";
+    'https://docs.google.com/forms/d/e/1FAIpQLSdbs_Lez8sHPLZHIGKoZGQ0b6UXg0v3DP1uGVWxVaWE0TY7Iw/formResponse'
 
   const entry = useMemo(
     () => ({
-      attend: "entry.877086558",
-      firstName: "entry.1498135098",
-      email: "entry.138389958",
-      lastName: "entry.1980418371",
+      attend: 'entry.877086558',
+      firstName: 'entry.1498135098',
+      email: 'entry.138389958',
+      lastName: 'entry.1980418371',
     }),
     [],
-  );
+  )
 
-  const ATTEND_ACCEPT_LABEL = "Yes, I accept with pleasure";
-  const ATTEND_DECLINE_LABEL = "Declines with regrets";
+  // ⚠️ MUST match Google Form options EXACTLY (including spaces)
+  const ATTEND_ACCEPT_LABEL = 'Yes,  I accept with pleasure'
+  const ATTEND_DECLINE_LABEL = 'Declines with regrets'
+
+  const ERROR_MESSAGE =
+    'We couldn’t record your RSVP right now. Please contact the couple directly.'
 
   const isValidEmail = (value: string) => {
-    const v = value.trim();
-    if (!v) return false;
-    // simple, practical check
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-  };
+    const v = value.trim()
+    if (!v) return false
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+  }
 
   const canSubmit =
-    attend !== "" &&
+    attend !== '' &&
     firstName.trim().length > 0 &&
     isValidEmail(email) &&
     lastName.trim().length > 0 &&
-    // isEntourageChild !== null &&
-    !isSubmitting;
+    !isSubmitting
 
-  const submitViaHiddenForm = (payload: Record<string, string>) => {
-    const form = document.createElement("form");
-    form.action = GOOGLE_FORM_ACTION_URL;
-    form.method = "POST";
-    form.target = iframeName.current;
-    form.style.display = "none";
+  const clearTimers = () => {
+    if (successTimerRef.current) window.clearTimeout(successTimerRef.current)
+    if (failTimerRef.current) window.clearTimeout(failTimerRef.current)
+    successTimerRef.current = null
+    failTimerRef.current = null
+  }
+
+  const resetFinishState = () => {
+    didFinishRef.current = false
+    clearTimers()
+  }
+
+  const markSuccess = () => {
+    if (didFinishRef.current) return
+    didFinishRef.current = true
+    clearTimers()
+
+    setStatus('success')
+    setAttend('')
+    setFirstName('')
+    setEmail('')
+    setLastName('')
+    // setIsEntourageChild(null)
+    setIsSubmitting(false)
+  }
+
+  const markError = () => {
+    if (didFinishRef.current) return
+    didFinishRef.current = true
+    clearTimers()
+
+    setStatus('error')
+    setIsSubmitting(false)
+  }
+
+  const submitViaHiddenIframeGet = (payload: Record<string, string>) => {
+    const params = new URLSearchParams()
 
     Object.entries(payload).forEach(([name, value]) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = name;
-      input.value = value;
-      form.appendChild(input);
-    });
+      params.set(name, value)
+    })
 
-    document.body.appendChild(form);
-    form.submit();
-    form.remove();
-  };
+    params.set('submit', 'Submit')
+    params.set('_ts', String(Date.now()))
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!canSubmit) return;
+    const url = `${GOOGLE_FORM_ACTION_URL}?${params.toString()}`
 
-    setIsSubmitting(true);
-    setStatus("idle");
+    if (!iframeRef.current) throw new Error('Missing iframe')
+    iframeRef.current.src = url
+  }
 
-    const attendLabel =
-      attend === "accept" ? ATTEND_ACCEPT_LABEL : ATTEND_DECLINE_LABEL;
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!canSubmit) return
+
+    setIsSubmitting(true)
+    setStatus('idle')
+    resetFinishState()
+
+    const attendLabel = attend === 'accept' ? ATTEND_ACCEPT_LABEL : ATTEND_DECLINE_LABEL
 
     try {
-      submitViaHiddenForm({
+      submitViaHiddenIframeGet({
         [entry.attend]: attendLabel,
         [entry.firstName]: firstName.trim(),
         [entry.email]: email.trim(),
         [entry.lastName]: lastName.trim(),
-      });
+      })
 
-      setStatus("success");
-      setAttend("");
-      setFirstName("");
-      setEmail("");
-      setLastName("");
-      // setIsEntourageChild(null)
+      successTimerRef.current = window.setTimeout(() => {
+        markSuccess()
+      }, 800)
+
+      failTimerRef.current = window.setTimeout(() => {
+        markError()
+      }, 8000)
     } catch (err) {
-      setStatus("error");
-    } finally {
-      setIsSubmitting(false);
+      markError()
     }
-  };
+  }
 
   return (
     <section className="rsvp-page">
@@ -106,14 +146,18 @@ export default function RsvpPage() {
         <h2 className="rsvp-page__heading">Celebrate with us..</h2>
 
         <p className="rsvp-page__subtitle">
-          Please confirm your attendance by entering your details below. You can
-          RSVP until March 15, 2026.
+          Please confirm your attendance by entering your details below. You can RSVP until March 15,
+          2026.
         </p>
 
         <iframe
-          name={iframeName.current}
+          ref={iframeRef}
+          name={iframeName}
           title="google-form-target"
-          style={{ display: "none" }}
+          style={{display: 'none'}}
+          onLoad={() => {
+            if (!didFinishRef.current) markSuccess()
+          }}
         />
 
         <form className="rsvp-form" onSubmit={onSubmit}>
@@ -128,8 +172,8 @@ export default function RsvpPage() {
                   type="radio"
                   name="attend"
                   value="accept"
-                  checked={attend === "accept"}
-                  onChange={() => setAttend("accept")}
+                  checked={attend === 'accept'}
+                  onChange={() => setAttend('accept')}
                 />
                 <span className="rsvp-radio__dot" aria-hidden="true" />
                 <span className="rsvp-radio__text">{ATTEND_ACCEPT_LABEL}</span>
@@ -140,8 +184,8 @@ export default function RsvpPage() {
                   type="radio"
                   name="attend"
                   value="decline"
-                  checked={attend === "decline"}
-                  onChange={() => setAttend("decline")}
+                  checked={attend === 'decline'}
+                  onChange={() => setAttend('decline')}
                 />
                 <span className="rsvp-radio__dot" aria-hidden="true" />
                 <span className="rsvp-radio__text">{ATTEND_DECLINE_LABEL}</span>
@@ -194,39 +238,28 @@ export default function RsvpPage() {
           </div>
 
           <button className="rsvp-submit" type="submit" disabled={!canSubmit}>
-            {isSubmitting ? "Submitting…" : "Submit"}
+            {isSubmitting ? 'Submitting…' : 'Submit'}
           </button>
 
           <h5 className="rsvp-note">
-            ***This section will close after the above said date. Please contact
-            the couple directly.***
+            ***This section will close after the above said date. Please contact the couple directly.
+            ***
           </h5>
 
-          {status === "success" && (
-            <p className="rsvp-status rsvp-status--success">
-              Thank you. Your RSVP has been recorded.
-            </p>
+          {status === 'success' && (
+            <p className="rsvp-status rsvp-status--success">Thank you. Your RSVP has been recorded.</p>
           )}
 
-          {status === "error" && (
-            <p className="rsvp-status rsvp-status--error">
-              Something went wrong. Please try again.
-            </p>
-          )}
+          {status === 'error' && <p className="rsvp-status rsvp-status--error">{ERROR_MESSAGE}</p>}
         </form>
       </div>
 
       <div className="rsvp-credit" aria-label="Site credit">
-        <img
-          className="rsvp-credit__img"
-          src="/jcd.png"
-          alt="jcami.dev"
-          draggable={false}
-        />
+        <img className="rsvp-credit__img" src="/jcd.png" alt="jcami.dev" draggable={false} />
         <div className="rsvp-credit__tooltip" role="tooltip">
           This site is developed by jcami.dev
         </div>
       </div>
     </section>
-  );
+  )
 }
