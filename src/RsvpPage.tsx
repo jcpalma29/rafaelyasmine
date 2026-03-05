@@ -113,7 +113,7 @@ export default function RsvpPage() {
 
         <p className="rsvp-page__subtitle">
           Please confirm your attendance by entering your details below. You can
-          RSVP until March 8, 2026.
+          RSVP until March 15, 2026.
         </p>
 
         <iframe
