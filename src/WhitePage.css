@@ -31,6 +31,17 @@
   isolation: isolate;
 }
 
+.raf-yas {
+  margin: 0 0 10px;
+  text-align: center;
+  font-family: "Burgues", var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(20, 20, 18, 0.85);
+  font-size: 62px;
+}
+
+
 /* reserve height so stacked absolute images have space */
 .whitePage__stack::before{
   content: "";
@@ -174,6 +185,9 @@
   .whitePage__ivy{
     width: 170vw;
     bottom: -220px;
+  }
+    .raf-yas {
+    font-size: 44px;
   }
 }
 

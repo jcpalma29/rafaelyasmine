@@ -202,7 +202,7 @@ export default function WhitePage() {
 
           {/* <img ref={rnyRef} className='whitePage__rny' src={`${base}rny2.png`} alt='Rafael and Yasmine' draggable={false} /> */}
 
-          <h2 className="rsvp-page__heading">Rafael &amp; Yasmine</h2>
+          <h2 className="raf-yas">Rafael &amp; Yasmine</h2>
 
           <p ref={line3Ref} className="whitePage__line">
             invite you to join them in celebrating their marriage.

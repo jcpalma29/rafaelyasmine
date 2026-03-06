@@ -397,10 +397,10 @@
   }
 
   .rsvp-page {
-    padding: 0 45px;
+    padding: 0 25px 70px 25px;
   }
     .rsvp-page__heading {
-    font-size: 44px;
+    font-size: 40px;
     padding-top: 60px;
   }
 }
