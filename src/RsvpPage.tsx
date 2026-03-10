@@ -145,8 +145,8 @@ export default function RsvpPage() {
         <h2 className="rsvp-page__heading">Celebrate with us..</h2>
 
         <p className="rsvp-page__subtitle">
-          Please confirm your attendance by entering your details below. You can RSVP until March 15,
-          2026.
+          Please confirm your attendance by entering your details below. You can RSVP until Jan 15,
+          2025.
         </p>
 
         <iframe

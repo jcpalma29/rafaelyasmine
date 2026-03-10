@@ -211,12 +211,12 @@ export default function WhitePage() {
           <div
             ref={dateRef}
             className="whitePage__dateRow"
-            aria-label="April 28 2026"
+            aria-label="February 14 2026"
           >
             <div className="whitePage__dateTopRow3">
-              <span className="whitePage__side">APRIL</span>
+              <span className="whitePage__side">February</span>
               <span className="whitePage__sep3">|</span>
-              <span className="whitePage__day3">28</span>
+              <span className="whitePage__day3">14</span>
               <span className="whitePage__sep3">|</span>
               <span className="whitePage__side">2026</span>
             </div>
