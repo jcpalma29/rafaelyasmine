@@ -56,8 +56,8 @@ export default function DressPage() {
           refrain from wearing white.
         </p>
         <p className="dress-page__subtitle">
-          <b>Ninong and Male guests:</b> Traditional Barong and Black pants <br />
-          <b>Ninang and Female guests:</b> Maxi Dress and please follow motif colors
+          <b>Padrinos and Male guests:</b> Traditional Barong and Black pants <br />
+          <b>Madrinas and Female guests:</b> Maxi Dress and please follow motif colors
         </p>
 
         <img
