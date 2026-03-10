@@ -188,17 +188,17 @@ export default function DetailsPage() {
           <div className="details-card__inner">
             <div className="details-card__label">CEREMONY</div>
             <div className="details-card__title">
-              <strong>Basilica Minore del Sto. Niño</strong>
+              <strong>Santiago de Compostela Cathedral</strong>
               {/* <br />
               <strong>Parish Church</strong> */}
             </div>
             <div className="details-card__text details-card__text--sans">
-              Cebu City
+              A Coruña, Spain
             </div>
 
             <a
               className="details-card__btn"
-              href="https://maps.app.goo.gl/mqqmys1z8otVrA7MA"
+              href="https://maps.app.goo.gl/KS2oGXaPWGwkYnrx9"
               target="_blank"
               rel="noreferrer"
             >
@@ -211,15 +211,15 @@ export default function DetailsPage() {
           <div className="details-card__inner">
             <div className="details-card__label">RECEPTION </div>
             <div className="details-card__title">
-              <strong>Fort San Pedro</strong>
+              <strong>Pazo de San Lourenzo de Trasouto</strong>
             </div>
             <div className="details-card__text details-card__text--sans">
-              Plaza Independencia, Cebu
+              A Coruña, Spain
             </div>
 
             <a
               className="details-card__btn"
-              href="https://maps.app.goo.gl/3RS6ExQMHvc1azHv9"
+              href="https://maps.app.goo.gl/ghrRN1ryinZG8inB8"
               target="_blank"
               rel="noreferrer"
             >
