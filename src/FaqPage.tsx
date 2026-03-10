@@ -44,7 +44,7 @@ If you haven’t RSVP'd yet, please scroll down on the website and click on the 
       },
       {
         q: "Are both venues accessible?",
-        a: `Yes, both venues are accessible. If you are coming from Manila, we highly recommend planning your trip in advance and considering carpooling or arranging private transportation ahead of time to avoid any stress on the day. 
+        a: `Yes, both venues are accessible. We highly recommend planning your trip in advance and considering carpooling or arranging private transportation ahead of time to avoid any stress on the day. 
 
 To make things easier, we’ve included location pins for both venues on Google Maps. The distance between the church and the reception area is only about 5 mins drive.
 
