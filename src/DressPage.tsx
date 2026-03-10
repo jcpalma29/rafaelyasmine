@@ -55,10 +55,10 @@ export default function DressPage() {
           compliments our color palette. As a courtesy to the bride, please
           refrain from wearing white.
         </p>
-        <p className="dress-page__subtitle">
+        {/* <p className="dress-page__subtitle">
           <b>Padrinos and Male guests:</b> Traditional Barong and Black pants <br />
           <b>Madrinas and Female guests:</b> Maxi Dress and please follow motif colors
-        </p>
+        </p> */}
 
         <img
           ref={dressRef}
