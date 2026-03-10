@@ -24,7 +24,7 @@ export default function Footer() {
         </div>
 
         <h3 className="footer__names">Rafael &amp; Yasmine</h3>
-        <p className="footer__date">28 April 2026</p>
+        <p className="footer__date">14 February 2026</p>
         <p className="footer__credit">With all our love</p>
       </div>
     </footer>
